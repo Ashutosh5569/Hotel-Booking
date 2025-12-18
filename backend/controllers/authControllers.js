@@ -52,7 +52,12 @@ async function login(req, res) {
             return res.status(404).send({ success: false, message: "Email Or Password Is Invalid" });
         }
         const token = jwt.sign({ userId: userData._id }, jwt_secret, { expiresIn: "7d" });
-        res.cookie("token", token)
+        res.cookie("token", token, {
+            httpOnly: true,
+            sameSite:process.env.MODE == "production" ? "none":"lax",
+            secure: process.env.MODE=="production",
+            maxAge: 1000 * 60 * 60 * 24 * 2
+        })
         res.status(200).send({
             success: true,
             message: "Login Successfully",
