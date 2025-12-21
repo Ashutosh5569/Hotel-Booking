@@ -15,7 +15,7 @@ function UserContext({ children }) {
         try {
             const res = await api.get("/auth/me");
             if (res.status == 200) {
-                const userData = res?.data?.user;
+                const userData = res?.data?.data;
                 const isOwner = userData.role == "hotel-manager";
                 setUser({ ...userData, isOwner });
             }
