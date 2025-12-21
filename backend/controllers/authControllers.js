@@ -56,6 +56,7 @@ async function login(req, res) {
             httpOnly: true,
             sameSite:process.env.MODE == "production" ? "none":"lax",
             secure: process.env.MODE=="production",
+            path: "/",  
             maxAge: 1000 * 60 * 60 * 24 * 2
         })
         res.status(200).send({
